@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 from config import font
 from helpers import get_metadata
-from helpers_5 import entropy_plot, check_nominal_target, heatmap_correlation, get_default_nom_val, feature_table, entropy_explanation
+from helpers_5 import entropy_plot, check_nominal_target, heatmap_correlation, get_default_nom_val, feature_table, entropy_explanation, nominal_correlation_explanation, numeric_correlation_explanation
 
 # Based on what kind of dataset there is, the layout gets chosen
 
@@ -31,6 +31,16 @@ def create_layout_5(data_id):
             dbc.Card(
                 dbc.CardBody([
                     html.H1("(High dimensional) Dataset Exploration", style={"fontFamily": font}),
+                    html.P(nominal_correlation_explanation),
+                    html.Label("Correlation Threshold:"),
+                    dcc.Slider(
+                        id='correlation-threshold-slider-nominals',
+                        min=0,
+                        max=1,
+                        step=0.05,
+                        value=0,
+                        marks={i/10: f'{i/10:.1f}' for i in range(0, 11)}
+                    ),
                     dcc.Graph(id="heatmap-correlation-figure-nominals"),
                 ])
             ),
@@ -158,9 +168,8 @@ def create_layout_5(data_id):
                     ], style={'marginBottom': '30px'}),
                     dcc.Graph(id='parallel-coordinates-plot'),
                     
-                    html.H3("Heatmap of numerical features", style={"fontFamily": font}),
-                    # dcc.Graph(figure=heatmap_correlation(data_id), id="heatmap-correlation-figure-numericals"),
-                    dcc.Graph(id="heatmap-correlation-figure-numericals"),
+                    html.H3("Heatmap of correlations between numerical features", style={"fontFamily": font}),
+                    html.P(numeric_correlation_explanation),
                     html.Label('Correlation Threshold:'),
                     dcc.Slider(
                         id='correlation-threshold-slider',
@@ -169,7 +178,8 @@ def create_layout_5(data_id):
                         step=0.05,
                         value=0,
                         marks={i/10: f'{i/10:.1f}' for i in range(0, 11)}
-                    )
+                    ),
+                    dcc.Graph(id="heatmap-correlation-figure-numericals"),
                     
                 ]),
             
@@ -295,8 +305,8 @@ def create_layout_5(data_id):
                     ], style={'marginBottom': '30px'}),
                     dcc.Graph(id='parallel-coordinates-plot'),
                     
-                    html.H3("Heatmap of numerical features", style={"fontFamily": font}),
-                    dcc.Graph(id="heatmap-correlation-figure-numericals"),
+                    html.H3("Heatmap of correlations between numerical features", style={"fontFamily": font}),
+                    html.P(numeric_correlation_explanation),
                     html.Label('Correlation Threshold:'),
                     dcc.Slider(
                         id='correlation-threshold-slider',
@@ -306,9 +316,19 @@ def create_layout_5(data_id):
                         value=0,
                         marks={i/10: f'{i/10:.1f}' for i in range(0, 11)}
                     ),
+                    dcc.Graph(id="heatmap-correlation-figure-numericals"),
                     
                     html.H3("Heatmap of nominal features", style={"fontFamily": font}),
-                    html.P("Add information on how this correlation is calculated"),
+                    html.P(nominal_correlation_explanation),
+                    html.Label('Correlation Threshold:'),
+                    dcc.Slider(
+                        id='correlation-threshold-slider-nominals',
+                        min=0,
+                        max=1,
+                        step=0.05,
+                        value=0,
+                        marks={i/10: f'{i/10:.1f}' for i in range(0, 11)}
+                    ),
                     dcc.Graph(id="heatmap-correlation-figure-nominals"),
                 ]),
                  

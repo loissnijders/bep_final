@@ -290,9 +290,10 @@ def register_callbacks_5(app):
     
     @app.callback(
         Output('heatmap-correlation-figure-nominals', 'figure'),
-        [Input('url', 'pathname')]
+        [Input('url', 'pathname'),
+         Input("correlation-threshold-slider-nominals", "value")]
     )
-    def update_nominal_heatmap(pathname):
+    def update_nominal_heatmap(pathname, threshold):
         if pathname:
             # Extract the ID number from the URL
             match = re.search(r'/(\d+)$', pathname)
@@ -304,7 +305,8 @@ def register_callbacks_5(app):
         
         nominal_features = list(metadata[metadata["DataType"] == "nominal"].Attribute)
                 
-        cramers_v_matrix = pd.DataFrame(index=nominal_features, columns=nominal_features)
+        # Compute Cramér's V matrix
+        cramers_v_matrix = pd.DataFrame(index=nominal_features, columns=nominal_features, dtype=float)
 
         for col1 in nominal_features:
             for col2 in nominal_features:
@@ -312,13 +314,44 @@ def register_callbacks_5(app):
                     cramers_v_matrix.loc[col1, col2] = 1.0
                 else:
                     cramers_v_matrix.loc[col1, col2] = cramers_v(dataframe[col1], dataframe[col2])
-                    
-        cramers_v_matrix = cramers_v_matrix.astype(float)
-        
+
+        # Apply threshold
+        cramers_v_matrix_thresholded = cramers_v_matrix.where(cramers_v_matrix >= threshold)
+
+
+        # Remove rows and columns with all NaN values
+        cramers_v_matrix_filtered = cramers_v_matrix_thresholded.dropna(axis=0, how='all').dropna(axis=1, how='all')
+
+        if cramers_v_matrix_filtered.empty:
+            # Handle empty matrix
+            fig = go.Figure()
+            fig.update_layout(
+                title='No associations above the threshold.',
+                xaxis={'visible': False},
+                yaxis={'visible': False}
+            )
+            return fig
+
+        # Compute total association for each feature
+        total_association = cramers_v_matrix_filtered.sum(axis=1)
+
+        # Order features by total association and limit to top N features
+        top_features = total_association.sort_values(ascending=False).index
+
+        # Filter the matrix to include only the top features
+        cramers_v_matrix_filtered = cramers_v_matrix_filtered.loc[top_features, top_features]
+
+
+        # Optionally keep only the upper triangle
+        mask = np.triu(np.ones_like(cramers_v_matrix_filtered, dtype=bool), k=1)
+        upper_triangle = cramers_v_matrix_filtered.where(mask)
+        # Remove rows and columns with all NaN values again
+        upper_triangle = upper_triangle.dropna(axis=0, how='all').dropna(axis=1, how='all')
+
         # Prepare data for the heatmap
-        z = cramers_v_matrix.values
-        x = cramers_v_matrix.columns.tolist()
-        y = cramers_v_matrix.index.tolist()
+        z = upper_triangle.values
+        x = upper_triangle.columns.tolist()
+        y = upper_triangle.index.tolist()
 
         # Create the heatmap
         fig = go.Figure(data=go.Heatmap(
@@ -328,7 +361,8 @@ def register_callbacks_5(app):
             colorscale='Blues',
             colorbar=dict(title="Cramér's V"),
             zmin=0,
-            zmax=1
+            zmax=1,
+            hoverongaps=False
         ))
 
         # Update layout
@@ -339,10 +373,12 @@ def register_callbacks_5(app):
             xaxis_title="Features",
             yaxis_title="Features",
             width=800,
-            height=800
+            height=800,
+            xaxis={'tickangle': -45}
         )
-        
+            
         return fig
+
     #########################################################################################################################
     @app.callback(
         Output('entropy-plot', 'figure'),

@@ -320,3 +320,7 @@ def cramers_v(x, y):
     
 entropy_explanation = "Entropy for nominal features in a dataset measures the amount of uncertainty or randomness in the distribution of categorical values. It quantifies how mixed or pure the distribution is—lower entropy indicates a more homogeneous distribution (less uncertainty), while higher entropy reflects a more diverse set of values (more uncertainty)."
     
+    
+numeric_correlation_explanation = "The numeric correlation matrix you're viewing shows the relationships between numerical features in the dataset, calculated using Pearson's correlation coefficient. Pearson's correlation measures the linear relationship between two variables, with values ranging from -1 (perfect negative correlation) to 1 (perfect positive correlation), and 0 meaning no linear relationship. The heatmap displays only correlations above the given threshold."
+
+nominal_correlation_explanation = "The asociation matrix you're viewing shows associations between nominal features in the data, calculated using Cramér's V measure which captures the strength of association between two categorical variables with values ranging from 0 (no association) to 1 (perfect association). Cramér's V measure is based on a Chi-square test, adjusted for the size of the data and table structure. Only associations above the given threshold are shown (select in slider) "
