@@ -1,3 +1,5 @@
+To run this dashboard:
+
 1. Pull this github or download the .zip folder
 2. install the requirements by running the following in the correct directory (using cd): pip install -r requirements.txt
 3. Run the dashapp.py file
