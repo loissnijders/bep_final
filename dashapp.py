@@ -1,5 +1,3 @@
-import shutil
-
 import dash
 import openml
 from dash import dcc, html, Input, Output
