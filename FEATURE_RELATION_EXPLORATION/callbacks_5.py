@@ -565,10 +565,22 @@ def register_callbacks_5(app):
         # Show plot
         return fig3
 
-########
+#################################################################################
 
+    @app.callback(
+        Output('heatmap-correlation-figure-numericals', 'figure'),
+        [Input('correlation-threshold-slider', 'value'),
+         Input('url', 'pathname')]
+    )
+    def update_heatmap(threshold, pathname):
+        if pathname:
+            # Extract the ID number from the URL
+            match = re.search(r'/(\d+)$', pathname)
+            if match:
+                data_id = int(match.group(1))  # Convert to integer
+        fig = heatmap_correlation(data_id, threshold)
+        return fig
 
-### WORKING HERE!!!!
 
 
 ########

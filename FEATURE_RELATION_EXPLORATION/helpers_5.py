@@ -87,7 +87,7 @@ def jitter(values, jitter_amount=0.2):
 ###########################################################################################
 
 
-def heatmap_correlation(data_id):
+def heatmap_correlation(data_id, threshold=0):
     metadata, data, name = get_metadata(data_id)
     dataframe = data.get_data()[0]
 
@@ -100,21 +100,32 @@ def heatmap_correlation(data_id):
     df_numeric_features = dataframe[numeric_features]
 
     corr_matrix = df_numeric_features.corr()
+    
+    # Apply threshold: Keep only correlations above the threshold
+    corr_matrix_thresholded = corr_matrix.where(abs(corr_matrix) >= threshold)
 
-    # Order the correlation matrix by the sum of correlations for better visualization
-    ordered_columns = corr_matrix.sum().sort_values(ascending=False).index
-    ordered_corr_matrix = corr_matrix.loc[ordered_columns, ordered_columns]
+    # Remove rows and columns with all NaN values
+    corr_matrix_filtered = corr_matrix_thresholded.dropna(axis=0, how='all').dropna(axis=1, how='all')
+
+    # Keep only the upper triangle
+    mask = np.triu(np.ones_like(corr_matrix_filtered, dtype=bool), k=1)
+    upper_triangle = corr_matrix_filtered.where(mask)
+
+    # Remove rows and columns with all NaN values again
+    upper_triangle = upper_triangle.dropna(axis=0, how='all').dropna(axis=1, how='all')
 
     # Create heatmap
     fig2 = go.Figure(data=go.Heatmap(
-                    z=ordered_corr_matrix.values,
-                    x=ordered_corr_matrix.columns,
-                    y=ordered_corr_matrix.columns,
-                    colorscale='Viridis'))
+        z=upper_triangle.values,
+        x=upper_triangle.columns,
+        y=upper_triangle.index,
+        colorscale='Viridis',
+        hoverongaps=False
+    ))
 
     # Update layout
     fig2.update_layout(
-        title='Correlation Matrix Heatmap Numerical Features',
+        title='Upper Triangle Correlation Matrix Heatmap',
         xaxis_title='Variables',
         yaxis_title='Variables'
     )

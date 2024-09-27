@@ -159,7 +159,17 @@ def create_layout_5(data_id):
                     dcc.Graph(id='parallel-coordinates-plot'),
                     
                     html.H3("Heatmap of numerical features", style={"fontFamily": font}),
-                    dcc.Graph(figure=heatmap_correlation(data_id), id="heatmap-correlation-figure-numericals"),
+                    # dcc.Graph(figure=heatmap_correlation(data_id), id="heatmap-correlation-figure-numericals"),
+                    dcc.Graph(id="heatmap-correlation-figure-numericals"),
+                    html.Label('Correlation Threshold:'),
+                    dcc.Slider(
+                        id='correlation-threshold-slider',
+                        min=0,
+                        max=1,
+                        step=0.05,
+                        value=0,
+                        marks={i/10: f'{i/10:.1f}' for i in range(0, 11)}
+                    )
                     
                 ]),
             
@@ -286,7 +296,16 @@ def create_layout_5(data_id):
                     dcc.Graph(id='parallel-coordinates-plot'),
                     
                     html.H3("Heatmap of numerical features", style={"fontFamily": font}),
-                    dcc.Graph(figure=heatmap_correlation(data_id), id="heatmap-correlation-figure-numericals"),
+                    dcc.Graph(id="heatmap-correlation-figure-numericals"),
+                    html.Label('Correlation Threshold:'),
+                    dcc.Slider(
+                        id='correlation-threshold-slider',
+                        min=0,
+                        max=1,
+                        step=0.05,
+                        value=0,
+                        marks={i/10: f'{i/10:.1f}' for i in range(0, 11)}
+                    ),
                     
                     html.H3("Heatmap of nominal features", style={"fontFamily": font}),
                     html.P("Add information on how this correlation is calculated"),
