@@ -159,7 +159,6 @@ def create_numerics_metadata_table(data_id):
     
     # Check if there are any numeric features
     if metadata_numeric.empty:
-        print("No numeric features found in metadata.")
         return pd.DataFrame()  # Return an empty DataFrame if no numeric features
     
     # Filter dataframe columns that are numeric and present in metadata
@@ -168,7 +167,6 @@ def create_numerics_metadata_table(data_id):
     # Check if there are numeric features in the dataframe
     numeric_data = dataframe[numeric_features]
     if numeric_data.empty:
-        print("No numeric data found in the dataframe.")
         return pd.DataFrame()  # Return an empty DataFrame if no numeric data
     
     # Create summary table with min, max, mean, median, std values, checking that numeric data exists
@@ -182,7 +180,6 @@ def create_numerics_metadata_table(data_id):
     
     # Ensure there is something to merge
     if summary_table_numerics.empty:
-        print("Summary statistics table is empty.")
         return pd.DataFrame()  # Return an empty DataFrame if no valid summary stats
     
     # Merge metadata_numeric with summary_table_numerics on 'Attribute'

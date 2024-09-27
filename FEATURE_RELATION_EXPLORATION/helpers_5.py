@@ -207,9 +207,6 @@ def find_most_important_features(pathname, top_x):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
         
     metadata, data, name = get_metadata(data_id)
     dataframe = data.get_data()[0]
@@ -255,9 +252,6 @@ def find_highest_correlated_numerics(pathname, size):
         match = re.search(r'/(\d+)$', pathname)
         if match:
             data_id = int(match.group(1))  # Convert to integer
-            print(f'Extracted ID: {data_id}')
-        else:
-            print('No ID found in the URL')
 
     # Get the data and metadata
     metadata, data, name = get_metadata(data_id)

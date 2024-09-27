@@ -39,9 +39,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
 
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -62,15 +59,6 @@ def register_callbacks_5(app):
                 selected_attribute_type = "nominal"
             elif selected_attribute_name in numeric_features:
                 selected_attribute_type = "numeric"
-
-            # Ensure that selected_attribute_type is defined before proceeding
-            if selected_attribute_type is None:
-                print(f"Warning: Attribute '{selected_attribute_name}' not found in metadata.")
-                continue  # Skip to the next selected attribute
-
-            print(nominal_features)
-            print(numeric_features)
-            print(target_feature, selected_attribute_name)
 
             if (selected_attribute_type == 'numeric') and (type_target_feature == 'numeric'):
                 fig = update_joint_plot(selected_attribute_name, target_feature, pathname)
@@ -100,10 +88,7 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
-
+                
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
         # Get the data from the dataframe
@@ -186,9 +171,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -220,9 +202,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -319,9 +298,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -380,9 +356,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -446,10 +419,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
-            
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
         
@@ -501,9 +470,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -543,9 +509,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         # Fetch metadata and data (assuming get_metadata is defined elsewhere)
         metadata, data, name = get_metadata(data_id)
@@ -622,9 +585,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
 
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -712,9 +672,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -832,9 +789,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -916,9 +870,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -957,9 +908,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -985,9 +933,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
 
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -1042,9 +987,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -1055,7 +997,6 @@ def register_callbacks_5(app):
         nominal_features = list(metadata[metadata["DataType"] == "nominal"].Attribute)
         numeric_features = list(metadata[metadata["DataType"] == "numeric"].Attribute)
         
-        print(f"Callback triggered. Target is {type_target_feature }")
         
         if type_target_feature == "nominal":
                 nominal_classes = sorted(dataframe[target_feature].cat.categories)
@@ -1064,10 +1005,8 @@ def register_callbacks_5(app):
                 return options, nominal_classes[:8]  # Automatically select first 8 categories by default
             
         else:
-            print("target is numeric")
             for feature in datatable_selected:
                 if feature in nominal_features:
-                    print(f"nominal feature {feature} selected for numeric target {target_feature}")
                     nominal_classes = sorted(dataframe[feature].cat.categories)
                     options = [{'label': category, 'value': category} for category in nominal_classes]
                 
@@ -1079,9 +1018,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
 
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -1132,9 +1068,6 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -1184,14 +1117,10 @@ def register_callbacks_5(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
         # Generate a joint plot
-        print(selected_numeric_variable)
         fig = px.scatter(dataframe, x=selected_numeric_variable, y=target_variable, 
                         marginal_x='histogram', marginal_y='histogram')
 

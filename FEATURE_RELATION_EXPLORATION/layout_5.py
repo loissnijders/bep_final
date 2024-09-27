@@ -26,7 +26,6 @@ def create_layout_5(data_id):
 
 
     if (len(numeric_features) == 0) and (len(nominal_features) > 0):
-        print("We have a nominal dataset")
         
         layout_5 = html.Div(children=[
             dbc.Card(
@@ -125,7 +124,6 @@ def create_layout_5(data_id):
         ])
         
     elif (len(nominal_features) == 0) and (len(numeric_features) > 0):
-        print("We have a numeric dataset")
         layout_5 = html.Div(children=[
             dbc.CardBody([
                     html.H1("(High dimensional) Dataset Exploration", style={"fontFamily": font}),
@@ -252,7 +250,6 @@ def create_layout_5(data_id):
             ])
         
     elif (len(numeric_features) > 0) and (len(nominal_features) > 0):
-        print("We have a mixed dataset")
         layout_5 = html.Div(children=[
             dbc.Card(
                 dbc.CardBody([

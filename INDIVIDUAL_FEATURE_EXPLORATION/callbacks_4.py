@@ -28,14 +28,10 @@ def register_callbacks_4(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
-
+                
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
 
-        print("callback is triggered")
 
         nominal_features = list(metadata[metadata["DataType"] == "nominal"].Attribute)
         numeric_features = list(metadata[metadata["DataType"] == "numeric"].Attribute)
@@ -45,7 +41,6 @@ def register_callbacks_4(app):
         for feature in feature_dropdown:
 
             if feature in numeric_features:
-                print(f"The feature {feature} is numeric")
                 section_header = html.H3(f"Distribution of feature: {feature} (numeric)", style={'marginBottom': '10px', 'marginTop': '20px'})
                 content.append(section_header)
                 try:
@@ -101,8 +96,6 @@ def register_callbacks_4(app):
             elif feature in nominal_features:
                 section_header = html.H3(f"Distribution of feature: {feature} (nominal)", style={'marginBottom': '10px', 'marginTop': '20px'})
                 content.append(section_header)
-
-                print(f"The feature {feature} is nominal")
                 try:
                     # Get Value Counts
                     value_counts = dataframe[feature].value_counts()
@@ -233,9 +226,6 @@ def register_callbacks_4(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
 
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -325,9 +315,6 @@ def register_callbacks_4(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
         
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]

@@ -29,9 +29,6 @@ def register_callbacks_1(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
             
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
@@ -48,9 +45,6 @@ def register_callbacks_1(app):
             match = re.search(r'/(\d+)$', pathname)
             if match:
                 data_id = int(match.group(1))  # Convert to integer
-                print(f'Extracted ID: {data_id}')
-            else:
-                print('No ID found in the URL')
         
         metadata, data, name = get_metadata(data_id)
         dataframe = data.get_data()[0]
