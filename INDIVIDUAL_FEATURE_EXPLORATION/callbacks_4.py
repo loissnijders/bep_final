@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
 from helpers import get_metadata
-# from helpers_4 import numeric_features, nominal_features
+from helpers_4 import get_bin_slider, explanation_number_bins, calculate_bins_freedman_diaconis
 import re
 import ast
 
@@ -62,6 +62,7 @@ def register_callbacks_4(app):
                     table_header = [html.Thead(html.Tr([html.Th("Statistic"), html.Th("Value")]))]
                     table_body = [html.Tbody([html.Tr([html.Td(stat), html.Td(desc.iloc[0][stat])]) for stat in desc.columns])]
                     table = dbc.Table(table_header + table_body, bordered=True, striped=True, hover=True)
+                    
 
                     # Combine graph and table in a row with controls above
                     row = html.Div(
@@ -71,12 +72,10 @@ def register_callbacks_4(app):
                             html.Div(
                                 style={'marginBottom': '10px'},
                                 children=[
+                                    html.P(explanation_number_bins),
+                                    html.P(f"For the feature {feature}, the optimal binsize is {calculate_bins_freedman_diaconis(dataframe[feature])}"),
                                     html.Label('Number of bins:'),
-                                    dcc.Slider(
-                                        id={'type': 'bin-slider', 'index': feature},
-                                        min=1, max=50, step=1, value=30,  # Adjust the min, max, and default bin values as needed
-                                        marks={i: str(i) for i in range(5, 51, 5)},  # Example marks every 5
-                                    )
+                                    get_bin_slider(dataframe, feature)
                                 ]
                             ),
                             # Graph and Table Row
