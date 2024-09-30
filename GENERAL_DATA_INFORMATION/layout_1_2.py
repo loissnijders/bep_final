@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
 from config import font
-from helpers_1 import general_data_summary_table, data_quality_summary_table, create_nominals_metadata_table, create_numerics_metadata_table, create_data_table, markdown_text
+from helpers_1 import general_data_summary_table, data_quality_summary_table, create_nominals_metadata_table, create_numerics_metadata_table, create_data_table, markdown_text, calculate_marks
 from helpers import get_metadata
 
 def create_layout_1(data_id):
@@ -46,11 +46,11 @@ def create_layout_1(data_id):
                 dcc.Slider(
                     id='row-slider',
                     min=0,
-                    max=len(dataframe),  # max is the full size of the dataset
-                    step=int(len(dataframe) * 0.2),
-                    value=50,  # default value
-                    # marks={i: str(i) for i in range(0, len(dataframe)+1, 25)},
-                )
+                    max=len(dataframe),  # Full length of the dataframe as max value
+                    step=10,  # Step can be adjusted based on preference
+                    value=100,  # Default value (first 100 rows)
+                    marks=calculate_marks(len(dataframe)),  # Dynamically generated proportional marks
+                ),
             ], style={'marginBottom': '20px'}),
 
             # # Here I can implement the option to dropdown the nominal features and later their values

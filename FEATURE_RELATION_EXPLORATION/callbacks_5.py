@@ -353,6 +353,11 @@ def register_callbacks_5(app):
         x = upper_triangle.columns.tolist()
         y = upper_triangle.index.tolist()
 
+        # Compute the height dynamically
+        height_per_feature = 20  # Adjust this value as needed
+        number_of_features = len(y)
+        fig_height = max(400, number_of_features * height_per_feature)  # Set a minimum height if desired
+
         # Create the heatmap
         fig = go.Figure(data=go.Heatmap(
             z=z,
@@ -365,7 +370,7 @@ def register_callbacks_5(app):
             hoverongaps=False
         ))
 
-        # Update layout
+        # Update layout with dynamic height
         fig.update_layout(
             title="Association Heatmap for Nominal Features",
             xaxis_nticks=36,
@@ -373,7 +378,7 @@ def register_callbacks_5(app):
             xaxis_title="Features",
             yaxis_title="Features",
             width=800,
-            height=800,
+            height=fig_height,
             xaxis={'tickangle': -45}
         )
             

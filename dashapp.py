@@ -8,7 +8,7 @@ import re
 
 import sys
 import os
-sys.path.append(os.path.abspath("C:/Users/20203203/Documents/data science Y4/Bachelor End Project/BepGitHub/OpenML/openml.org/server/src"))
+#sys.path.append(os.path.abspath("C:/Users/20203203/Documents/data science Y4/Bachelor End Project/BepGitHub/OpenML/openml.org/server/src"))
 from caching import CACHE_DIR_ROOT, CACHE_DIR_FLASK, CACHE_DIR_DASHBOARD
 
 # from GENERAL_DATA_INFORMATION.layout_1 import layout_1
@@ -139,4 +139,3 @@ dash_app = create_dash_app(flask_app)
 
 if __name__ == '__main__':
     flask_app.run(debug=True)
-    # dash_app.run_server(host='0.0.0.0', port=805)

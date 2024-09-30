@@ -96,9 +96,9 @@ def heatmap_correlation(data_id, threshold=0):
     
     target_feature = metadata[metadata.Target=='true'].Attribute.iloc[0]
     type_target_feature = metadata[metadata.Target=='true'].DataType.iloc[0]
+    
     # Calculate correlation matrix
     df_numeric_features = dataframe[numeric_features]
-
     corr_matrix = df_numeric_features.corr()
     
     # Apply threshold: Keep only correlations above the threshold
@@ -114,23 +114,37 @@ def heatmap_correlation(data_id, threshold=0):
     # Remove rows and columns with all NaN values again
     upper_triangle = upper_triangle.dropna(axis=0, how='all').dropna(axis=1, how='all')
 
+    # Prepare data for the heatmap
+    z = upper_triangle.values
+    x = upper_triangle.columns.tolist()
+    y = upper_triangle.index.tolist()
+
+    # Compute the height dynamically
+    height_per_feature = 20  # Adjust this value as needed
+    number_of_features = len(y)
+    fig_height = max(400, number_of_features * height_per_feature)  # Set a minimum height if desired
+
     # Create heatmap
     fig2 = go.Figure(data=go.Heatmap(
-        z=upper_triangle.values,
-        x=upper_triangle.columns,
-        y=upper_triangle.index,
+        z=z,
+        x=x,
+        y=y,
         colorscale='Viridis',
         hoverongaps=False
     ))
 
-    # Update layout
+    # Update layout with dynamic height
     fig2.update_layout(
         title='Upper Triangle Correlation Matrix Heatmap',
         xaxis_title='Variables',
-        yaxis_title='Variables'
+        yaxis_title='Variables',
+        width=800,
+        height=fig_height,
+        xaxis={'tickangle': -45}
     )
 
     return fig2
+
 
 
 

@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import numpy as np
 from helpers import get_metadata
+import math
 
 import sys
 import os
@@ -267,3 +268,12 @@ def create_data_table(df, table_id):
 markdown_text = """
 Feature importance is calculated using a Random Forest model, which measures how much each feature reduces the impurity (error) when splitting the data across decision trees. Features that result in larger reductions are assigned higher importance scores.
 """
+
+def calculate_marks(data_length, num_marks=5):
+    """
+    Calculate proportional marks based on the dataframe length.
+    num_marks is the number of marks you'd like to show (e.g., 5).
+    """
+    step = math.ceil(data_length / num_marks)
+    marks = {i: str(i) for i in range(0, data_length+1, step)}
+    return marks
